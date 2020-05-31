@@ -13,6 +13,7 @@ sudo rm -rf /etc/cloud/; sudo rm -rf /var/lib/cloud/
 ``` 
 
  - Network configuration
+
 If `netplan` is not turned off, change
 ```
 $ sudo nano /etc/netplan/50-cloud-init.yaml
@@ -65,6 +66,7 @@ iface ens32 inet static
 $ sudo service networking restart
 ```
  - Host name
+
 Change hostname when `netplan` is enabled
 ```
 $ sudo hostnamectl set-hostname <hostname>
@@ -78,6 +80,7 @@ $ sudo reboot
 ```
 
  - Change hostname when `netplan` is off.
+
 Set fqdn server.
 ```
 $ sudo nano /etc/hostname
@@ -133,6 +136,7 @@ $ sudo service networking restart
 ```
 
  - Change hostname.
+
 Set `fqdn` server.
 ```
 $ sudo nano /etc/hostname
