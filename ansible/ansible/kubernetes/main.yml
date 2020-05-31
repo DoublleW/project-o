@@ -1,0 +1,7 @@
+---
+- hosts: kuber_hosts
+    
+- import_playbook: init-user.yml
+- import_playbook: kube-dependencies.yml
+- import_playbook: master.yml
+- import_playbook: workers.yml
