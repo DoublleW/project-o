@@ -1,0 +1,31 @@
+---
+- name: Installing sysvinit & add $PATH
+  hosts: preinstall_hosts
+  become: yes
+
+  tasks:
+
+    - name: install sysvinit-utils
+      shell: |
+        sudo apt-get install sysvinit-utils
+      ignore_errors: yes
+
+    - name: ssh move old config
+      shell: sudo mv -f /etc/profile.d/path.sh /etc/profile.d/path.sh.bk
+      ignore_errors: yes
+
+
+    - name: copy path.sh to /etc/profile.d 
+      copy:
+        src: "{{ source_service }}"
+        dest: "{{ dest_service }}"
+      become: yes
+
+    - name: change permissions to root
+      become: yes
+      file:
+        path: "{{ dest_service }}"
+        owner: root
+        group: root
+        mode: 0644
+

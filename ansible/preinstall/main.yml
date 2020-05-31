@@ -1,0 +1,4 @@
+---
+- import_playbook: time_hosts.yml
+- import_playbook: copy-ssh-rsa.yml
+- import_playbook: sysvinit.yml

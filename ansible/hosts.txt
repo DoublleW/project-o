@@ -1,0 +1,36 @@
+# other hosts
+# nginx host
+[hosts_o]
+nginx ansible_host=10.10.10.10
+
+# replace or add the group with which hosts you need to preset
+[preinstall_hosts]
+hosts_o
+
+# -----------------------------------
+# kubernetes hosts
+
+[kuber_master]
+# change only IP
+master ansible_host=10.1.1.30
+
+
+[kuber_worker]
+# if there are more/fewer hosts, you need to change the number of hosts in the group_vars/all_servers.yml file
+work1 ansible_host=10.1.1.31
+work2 ansible_host=10.1.1.32
+work3 ansible_host=10.1.1.33
+
+[kuber_hosts]
+kuber_master
+kuber_worker
+# -----------------------------------
+
+
+[all_servers:children]
+kuber_master
+kuber_worker
+hosts_o
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3

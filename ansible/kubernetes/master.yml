@@ -1,0 +1,63 @@
+---
+- name: Setting Up the Master Node
+  hosts: kuber_master
+  become: yes
+
+  tasks:
+
+
+  - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
+    shell: |
+      sudo swapoff -a
+
+  - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/2)
+    replace:
+      path: /etc/fstab
+      regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+      replace: '# \1'
+
+
+  - name: service kubelet stop/start
+    become_user: "{{ kube_user }}"
+    become: yes
+    shell: |
+      sudo service kubelet stop
+      sudo service kubelet start
+      sudo snap install kube-scheduler
+
+  - name: initialize the cluster
+    become_user: "{{ kube_user }}"
+    shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=yes > /home/{{ kube_user }}/cluster_initialized.txt
+
+  - name: create .kube directory
+    become_user: "{{ kube_user }}"
+    file:
+      path: /home/{{ kube_user }}/.kube
+      state: directory
+      mode: 0755
+
+  - name: copy admin.conf to user's kube config
+    copy:
+      src: /etc/kubernetes/admin.conf
+      dest: /home/{{ kube_user }}/.kube/config
+      remote_src: yes
+      owner: "{{ kube_user }}"
+
+  - name: install Pod network
+    become_user: "{{ kube_user }}"
+    become: yes
+    shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml > /home/{{ kube_user }}/pod_network_setup.txt
+
+
+
+
+  # - name: Reenable SWAP in fstab (1/2)
+  #   replace:
+  #     path: /etc/fstab
+  #     regexp: '^# (.+?\sswap\s+sw\s+.*)$'
+  #     replace: '\1'
+
+  # - name: Enable SWAP (2/2)
+  #   shell: |
+  #     sudo swapon -a
+
