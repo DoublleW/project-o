@@ -1,0 +1,51 @@
+---
+- name: Connect ssh
+  hosts: preinstall_hosts
+  become: yes
+
+  tasks:
+
+    - name: Update all packages to the latest version
+      become_method: sudo
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Python
+      become: yes
+      raw:  apt install -y python python3 python3-pip
+
+    - name: Make dir
+      file:
+        path: "/home/{{ ansible_user }}/.ssh"
+        state: directory
+
+    - name: copy id_rsa public
+      copy:
+        src: "{{ source_file }}"
+        dest: "{{ dest_file }}"
+        mode: 0644
+
+    - name: ssh move old config
+      shell: sudo mv -f /etc/ssh/sshd_config /etc/ssh/sshd_config.bk
+
+    - name: copy ssh config
+      copy:
+        src: "{{ source_ssh }}"
+        dest: "{{ dest_ssh }}"
+      become: yes
+
+    - name: change permissions to root
+      become: yes
+      file:
+        path: "/etc/ssh/sshd_config"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: restart ssh service
+      service:
+        name: sshd
+        state: restarted
+      become: yes
+
