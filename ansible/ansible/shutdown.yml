@@ -1,9 +1,0 @@
----
-- name: Shutdown all servers
-  hosts: all
-  become: yes
-
-  tasks:
-
-  - name: Shutdown servers
-    shell: shutdown -P now # если перезапустить сразу, можно получить ошибку, делаем паузу
