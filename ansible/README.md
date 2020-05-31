@@ -13,9 +13,12 @@
  - File `hosts.txt` contains host IP addresses
 
 Before starting
--- comment out the unnecessary tasks in the `deploy.yml` file.
--- correct ip addresses of hosts in `hosts.txt` file.
--- check the variables in `group_vars/all_servers.yml` file.
+
+ -- comment out the unnecessary tasks in the `deploy.yml` file.
+ 
+ -- correct ip addresses of hosts in `hosts.txt` file.
+
+ -- check the variables in `group_vars/all_servers.yml` file.
 
  - Run command 
 ```
