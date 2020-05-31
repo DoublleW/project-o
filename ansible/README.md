@@ -1,160 +1,29 @@
-## Preparing the servers.
+# Start playbook on hosts which need to configured on kubernetes
+
+ - Runs on `Ubuntu 18.04.4 LTS` / `Debian GNU/Linux 9 (stretch)`
+
+ - Primary host configuration.
+
+ - Deletes the old configuration and cluster.
+
+ - Install and configuration on a separate host (the border host accepts incoming connections on ports `80/443`)
 
 
-# Ubuntu 18.04.4 LTS
+ - File `group_vars/all_servers.yml` contains user settings with `sudo` privileges, profile path key `id_rsa.pub`, `hosts`, kubernetes user, time zone (`$ timedatectl list-timezones`).
+ - File `hosts.txt` contains host IP addresses
 
-Turn off `cloud-init` as desired
+Before starting
+-- comment out the unnecessary tasks in the `deploy.yml` file.
+-- correct ip addresses of hosts in `hosts.txt` file.
+-- check the variables in `group_vars/all_servers.yml` file.
+
+ - Run command 
 ```
-echo 'datasource_list: [ None ]' | sudo -s tee /etc/cloud/cloud.cfg.d/90_dpkg.cfg
-
-sudo apt-get purge cloud-init
-
-sudo rm -rf /etc/cloud/; sudo rm -rf /var/lib/cloud/
-``` 
-
- - Network configuration
-If `netplan` is not turned off, change
-```
-$ sudo nano /etc/netplan/50-cloud-init.yaml
-
-# /etc/netplan/50-cloud-init.yaml
-network:
-    version: 2
-    ethernets:
-        ens32:
-            dhcp4: no
-            addresses: [10.1.1.13/24]
-            gateway4: 10.1.1.1
-            nameservers:
-                addresses: [10.1.1.1, 8.8.8.8]
-
-
-$ sudo netplan apply
-```
-
-Turn off `netplan`
-```
-$ sudo apt-get install -y ifupdown
-
-$ sudo rm -rf /etc/netplan/*.yaml
-
-$ sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-
-# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-network:
-{
-config: disable
-}
-```
-Customize the interface
-```
-$ sudo nano /etc/network/interfaces
-
-# /etc/network/interfaces
-auto lo
-iface lo inet loopback
-
-allow-hotplug ens32
-auto ens32
-iface ens32 inet static
-  address 10.1.1.10
-  netmask 255.255.255.0
-  gateway 10.1.1.1
-  dns-nameservers 10.1.1.1 8.8.8.8
-
-$ sudo service networking restart
-```
- - Host name
-Change hostname when `netplan` is enabled
-```
-$ sudo hostnamectl set-hostname <hostname>
-
-$ sudo nano /etc/cloud/cloud.cfg
-
-# This will cause the set+update hostname module to not operate (if true)
-preserve_hostname: true
-
-$ sudo reboot
-```
-
-Change hostname when `netplan` is off
-Set fqdn server
-```
-$ sudo nano /etc/hostname
-```
-If there is no DNS server, then we write the host name in `/etc/hosts`
-```
-$ sudo nano /etc/hosts
-
-127.0.0.1       localhost.localdomain   localhost  <host_name>
-```
-Disable `systemd-resolved`
-```
-$ sudo systemctl disable systemd-resolved.service
-
-$ sudo systemctl stop systemd-resolved.service
-
-$ sudo service networking restart
+$ ansible-playbook deploy.yml -K
 ```
 
 
-# Debian GNU/Linux 9 (stretch)
+# Enter at master host
 
- - You must add `sudo` rights for the user.
-```
-$ su
+ - Enter at master host as user `kubemaster` (`kube_user` in `group_vars/all_servers.yml`)
 
-# apt-get update
-
-# apt-get install sudo -y
-
-# usermod -a -G sudo <user>
-
-# reboot
-```
-
- - Customize the interface
-```
-$ sudo nano /etc/network/interfaces
-
-# /etc/network/interfaces
-auto lo
-iface lo inet loopback
-
-allow-hotplug ens32
-auto ens32
-iface ens32 inet static
-  address 10.1.1.10
-  netmask 255.255.255.0
-  gateway 10.1.1.1
-  dns-nameservers 10.1.1.1 8.8.8.8
-
-$ sudo service networking restart
-```
-
- - Change hostname.
-Set fqdn server.
-```
-$ sudo nano /etc/hostname
-
-<ip_address>   <name_server>
-```
-If there is no DNS server, then we write the host name in `/etc/hosts`
-```
-$ sudo nano /etc/hosts
-
-127.0.0.1       localhost.localdomain   localhost  <host_name>
-```
-Disable `systemd-resolved`
-```
-$ sudo systemctl disable systemd-resolved.service
-
-$ sudo systemctl stop systemd-resolved.service
-
-$ sudo service networking restart
-```
-
-
-## Preinstall and build the kubernetes cluster.
-
-Go to the `ansible` folder, change the parameters and start the playbook.
