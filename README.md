@@ -32,7 +32,7 @@ network:
 $ sudo netplan apply
 ```
 
-Turn off `netplan`
+ - Turn off `netplan`
 ```
 $ sudo apt-get install -y ifupdown
 
@@ -77,8 +77,8 @@ preserve_hostname: true
 $ sudo reboot
 ```
 
-Change hostname when `netplan` is off
-Set fqdn server
+ - Change hostname when `netplan` is off.
+Set fqdn server.
 ```
 $ sudo nano /etc/hostname
 ```
@@ -133,7 +133,7 @@ $ sudo service networking restart
 ```
 
  - Change hostname.
-Set fqdn server.
+Set `fqdn` server.
 ```
 $ sudo nano /etc/hostname
 
