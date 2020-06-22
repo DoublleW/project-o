@@ -1,7 +1,7 @@
 ## Preparing the servers.
 
 
-# Ubuntu 18.04.4 LTS
+# Ubuntu 18.04 LTS
 
 Turn off `cloud-init` as desired
 ```
