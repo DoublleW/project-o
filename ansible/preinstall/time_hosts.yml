@@ -1,6 +1,6 @@
 ---
 - name: time_hosts
-  hosts: kuber_hosts
+  hosts: preinstall_hosts
   become: yes
 
   tasks:
@@ -37,13 +37,14 @@
 ## change quantity loop if there are fewer or more hosts
     - name: copy old hosts config
       shell: sudo mv -f /etc/hosts /etc/hosts.bk
+    - name: create /etc/hosts
       shell: sudo touch /etc/hosts
 
     - name: Add mappings to /etc/hosts
       blockinfile:
         path: /etc/hosts
         block: |
-          {{ item.ip }} {{ item.name }}
+          {{ item.ip }}    {{ item.name }}
         marker: "# kubernetes & nginx"
       loop:
         - { name: "{{ server_main }}", ip: "{{ server_main_ip }}" }
