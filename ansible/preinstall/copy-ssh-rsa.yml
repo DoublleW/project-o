@@ -28,6 +28,7 @@
 
     - name: ssh move old config
       shell: sudo mv -f /etc/ssh/sshd_config /etc/ssh/sshd_config.bk
+      ignore_errors: True
 
     - name: copy ssh config
       copy:
