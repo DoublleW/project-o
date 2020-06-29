@@ -16,8 +16,8 @@
 
 
     - name: copy path.sh to /etc/profile.d 
-      copy:
-        src: "{{ source_service }}"
+      template:
+        src: path.j2
         dest: "{{ dest_service }}"
       become: yes
 
