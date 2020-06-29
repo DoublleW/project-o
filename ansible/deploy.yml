@@ -8,7 +8,7 @@
 
 - import_playbook: ./preinstall/main.yml
 
-#- import_playbook: ./kubernetes/main.yml
+- import_playbook: ./kubernetes/main.yml
 
-##- import_playbook: ./nginx/main.yml
+#- import_playbook: ./nginx/main.yml
 
