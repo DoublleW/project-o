@@ -9,14 +9,14 @@
  - Install and configuration on a separate host (the border host accepts incoming connections on ports `80/443`)
 
 
- - File `group_vars/all_servers.yml` contains user settings with `sudo` privileges, profile path key `id_rsa.pub`, `hosts`, kubernetes user, time zone (`$ timedatectl list-timezones`).
- - File `hosts.txt` contains host IP addresses
+ - File `group_vars/all_servers.yml` contains user settings with `sudo` privileges, profile path key `id_rsa.pub`, `main_host`, kubernetes user, time zone (`$ timedatectl list-timezones`).
+ - File `hosts.ini` contains host IP addresses
 
 Before starting
 
  -- comment out the unnecessary tasks in the `deploy.yml` file.
  
- -- correct ip addresses of hosts in `hosts.txt` file.
+ -- correct ip addresses of hosts in `hosts.ini` file.
 
  -- check the variables in `group_vars/all_servers.yml` file.
 
