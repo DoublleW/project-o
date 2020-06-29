@@ -2,6 +2,7 @@
 - hosts: 
     preinstall_hosts
 
+
 - import_playbook: time.yml
 - import_playbook: hosts.yml
 - import_playbook: copy-ssh-rsa.yml

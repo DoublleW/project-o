@@ -5,12 +5,6 @@
 
   tasks:
 
-##    - name: Update all packages to the latest version
-##      become_method: sudo
-##      apt:
-##        update_cache: yes
-##        upgrade: dist
-
     - name: Install Python
       become: yes
       raw:  apt install -y python python3 python3-pip
