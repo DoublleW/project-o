@@ -5,11 +5,11 @@
 
   tasks:
 
-    - name: Update all packages to the latest version
-      become_method: sudo
-      apt:
-        update_cache: yes
-        upgrade: dist
+##    - name: Update all packages to the latest version
+##      become_method: sudo
+##      apt:
+##        update_cache: yes
+##        upgrade: dist
 
     - name: Install Python
       become: yes
@@ -31,8 +31,8 @@
       ignore_errors: True
 
     - name: copy ssh config
-      copy:
-        src: "{{ source_ssh }}"
+      template:
+        src: sshd_config.j2
         dest: "{{ dest_ssh }}"
       become: yes
 

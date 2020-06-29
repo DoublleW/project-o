@@ -13,7 +13,6 @@ ansible_become_password : usr123123
 source_file             : /home/user/.ssh/id_rsa.pub     # path to rsa key /home/<user>/.ssh/id_rsa.pub
 dest_file               : "/home/{{ ansible_user }}/.ssh/authorized_keys"
 
-source_ssh              : ../files/sshd_config
 dest_ssh                : /etc/ssh/sshd_config
 
 
@@ -33,7 +32,6 @@ time_zone               : Europe/Moscow
 
 # ----### kubernetes tasks ###---------------------------------------------------
 # service 
-source_service          : ../files/path
 dest_service            : /etc/profile.d/path.sh 
     
 # kubernetes user
