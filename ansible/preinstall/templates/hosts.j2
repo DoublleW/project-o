@@ -1,0 +1,23 @@
+# main host
+{{ server_main_ip }}    {{ server_main }}
+
+# kubernetes master
+{% if 'master' in hostvars %}
+{{ hostvars.master['ansible_host'] }}    {{ hostvars.master['ansible_hostname'] }}
+{% endif %}
+
+# kubernetes workers
+{% if 'work1' in hostvars %}
+{{ hostvars.work1['ansible_host'] }}    {{ hostvars.work1['ansible_hostname'] }}
+{% endif %}
+{% if 'work2' in hostvars %}
+{{ hostvars.work2['ansible_host'] }}    {{ hostvars.work2['ansible_hostname'] }}
+{% endif %}
+{% if 'work3' in hostvars %}
+{{ hostvars.work3['ansible_host'] }}    {{ hostvars.work3['ansible_hostname'] }}
+{% endif %}
+
+# nginx
+{% if 'nginx' in hostvars %}
+{{ hostvars.nginx['ansible_host'] }}    {{ hostvars.nginx['ansible_hostname'] }}
+{% endif %}

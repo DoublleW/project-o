@@ -10,7 +10,7 @@ ansible_become_password : usr123123
 # ----### preinstall tasks ###--------------------------------------------------
 # copy key from prifile
 
-source_file             : /home/user/.ssh/id_rsa.pub            # path to rsa key /home/<user>/.ssh/id_rsa.pub
+source_file             : /home/user/.ssh/id_rsa.pub     # path to rsa key /home/<user>/.ssh/id_rsa.pub
 dest_file               : "/home/{{ ansible_user }}/.ssh/authorized_keys"
 
 source_ssh              : ../files/sshd_config
@@ -18,21 +18,12 @@ dest_ssh                : /etc/ssh/sshd_config
 
 
 # /etc/hosts
-# if using DNS comment in task/main.yml - import_playbook: time_hosts.yml
+# if using DNS comment in task/main.yml - import_playbook: hosts.yml
 
-server_main             : ubuntudesktop64
-server_1                : kuber.master
-server_2                : kuber.w1
-server_3                : kuber.w2 
-server_4                : kuber.w3
-server_5                : nginx
+server_main             : ubuntudesktop64     # static hostname
 
-server_main_ip          : 10.1.1.5           # for test using main host to start playbook
-server_1_ip             : "{{ hostvars.master['ansible_host'] }}"
-server_2_ip             : "{{ hostvars.work1['ansible_host'] }}"
-server_3_ip             : "{{ hostvars.work2['ansible_host'] }}"
-server_4_ip             : "{{ hostvars.work3['ansible_host'] }}"
-server_5_ip             : "{{ hostvars.nginx['ansible_host'] }}"
+server_main_ip          : 10.1.1.5            # for test using main host to start playbook
+
 
 # timezone
 # check timezone - `$ timedatectl list-timezones | grep Moscow`
