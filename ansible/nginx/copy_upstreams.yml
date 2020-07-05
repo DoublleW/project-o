@@ -1,0 +1,22 @@
+---
+- name: Install nginx
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Meke directiry 'upstreams'
+    file:
+        path: /etc/nginx/upstreams
+        state: directory
+
+  - name: Copy upstream kube.workers
+    template:
+      src: kube.workers.conf.j2
+      dest: /etc/nginx/upstreams/kube.workers.conf
+    become: yes
+
+  - name: Copy upstreams to kube.dashboard
+    template:
+      src: kube.dashboard.conf.j2
+      dest: /etc/nginx/upstreams/kube.dashboard.conf

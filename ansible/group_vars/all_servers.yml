@@ -5,6 +5,45 @@
 ansible_user            : usr1
 ansible_password        : usr123123
 ansible_become_password : usr123123
+####
+# encrypt substitution string in playbook
+# 
+##: ansible-vault encrypt_string <password>
+#
+# you need to enter a password to encrypt the text
+# remember the password entered during encryption
+# copy the resulting value
+#
+##: New Vault password:
+##: Confirm New Vault password:
+##: Reading plaintext input from stdin. (ctrl-d to end input)
+##: Passjwj388HIH8h9jd38&T^$#edy%$e53!vault | # copy from '!vault' | and further to the last digit
+##:           $ANSIBLE_VAULT;1.1;AES256
+##:           66613365373730643966643662313861303066623436393133343635636539613865653263643733
+##:           3939646264396665643230363037653937383931613538360a373636306461333431663138626239
+##:           62666331313638366633666439383133346234626363393737616433363863656135303439346632
+##:           3666643865383435390a656631633963333461363036356464633864626439376339636166633631
+##:           38646432613935303333356665653761393633346337623565643535646262663562303263356566
+##:           6361373331376565333162663838666632336337353536373537
+##: Encryption successful
+#
+# insert into the playbook
+#
+##: ansible_password : !vault |
+##:          $ANSIBLE_VAULT;1.1;AES256
+##:          66613365373730643966643662313861303066623436393133343635636539613865653263643733
+##:          3939646264396665643230363037653937383931613538360a373636306461333431663138626239
+##:          62666331313638366633666439383133346234626363393737616433363863656135303439346632
+##:          3666643865383435390a656631633963333461363036356464633864626439376339636166633631
+##:          38646432613935303333356665653761393633346337623565643535646262663562303263356566
+##:          6361373331376565333162663838666632336337353536373537
+#
+# launch playbook with encrypted line
+#
+##: ansible-platbook <name.yml> --ask-vault-pass -K
+#
+# this method will encrypt any line or secret
+####
 
 
 # ----### preinstall tasks ###--------------------------------------------------
@@ -21,7 +60,7 @@ dest_ssh                : /etc/ssh/sshd_config
 
 server_main             : ubuntudesktop64     # static hostname
 
-server_main_ip          : 10.1.1.5            # for test using main host to start playbook
+server_main_ip          : 10.10.10.5            # for test using main host to start playbook
 
 
 # timezone
@@ -29,10 +68,15 @@ server_main_ip          : 10.1.1.5            # for test using main host to star
 
 time_zone               : Europe/Moscow
 
+# nginx
+# stub_status site port
+
+stub_status_port        : 8084
 
 # ----### kubernetes tasks ###---------------------------------------------------
 # service 
 dest_service            : /etc/profile.d/path.sh 
+dashboard_port          : 8085
     
 # kubernetes user
 

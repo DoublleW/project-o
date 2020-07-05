@@ -1,0 +1,40 @@
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+
+	include /etc/nginx/include/requestid_dmz.conf;
+    include /etc/nginx/include/log_format.conf;
+
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile             on;
+    tcp_nopush           on;
+    tcp_nodelay          on;
+    keepalive_timeout    30;
+    types_hash_max_size  2048;
+
+    reset_timedout_connection on;
+
+    server_tokens off;
+
+    gzip  on;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*.conf;
+    include /etc/nginx/upstreams/*.conf;
+}

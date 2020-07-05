@@ -1,4 +1,19 @@
 ---
-##- import_playbook: none
+- hosts: hosts_o
 
 
+# update host
+- import_playbook: update.yml
+
+# install nginx
+- import_playbook: nginx_install.yml
+
+# copy configuration file and target upstream to all kubernetes workers
+- import_playbook: copy_conf.yml
+- import_playbook: copy_upstreams.yml
+- import_playbook: copy_sites.yml
+- import_playbook: copy_ssl_protocol.yml
+- import_playbook: copy_include.yml
+
+# install certbot
+- import_playbook: certbot.yml

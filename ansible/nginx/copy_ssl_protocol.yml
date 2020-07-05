@@ -1,0 +1,18 @@
+---
+- name: Install nginx
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Meke directiry 'include'
+    file:
+        path: /etc/nginx/include
+        state: directory
+
+  - name: Copy ssl protocol
+    template:
+      src: ssl_protocols.conf.j2
+      dest: /etc/nginx/include/ssl_protocols.conf
+    become: yes
+

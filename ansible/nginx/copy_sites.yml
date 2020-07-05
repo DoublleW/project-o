@@ -1,0 +1,29 @@
+---
+- name: Install nginx
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Make directiry 'sites-enabled'
+    file:
+        path: /etc/nginx/sites-enabled
+        state: directory
+
+  - name: Copy site config to 'kube-workers'
+    template:
+      src: kube-workers.conf.j2
+      dest: /etc/nginx/sites-enabled/kube-workers.conf
+    become: yes
+
+  - name: Copy site config to 'kube-dashboard'
+    template:
+      src: kube-dashboard.conf.j2
+      dest: /etc/nginx/sites-enabled/kube-dashboard.conf
+    become: yes
+
+  - name: Copy site config to 'stub status'
+    template:
+      src: status-stub.conf.j2
+      dest: /etc/nginx/sites-enabled/status-stub.conf
+    become: yes
