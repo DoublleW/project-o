@@ -46,6 +46,6 @@ $ ansible-playbook deploy.yml -K
 
 when:
 
-    `<nginx_ip>` in `hosts.ini` - `[hosts_o]`
+   `<nginx_ip>` in `hosts.ini` - `[hosts_o]`
     
-    `<port>` in `group_vars/all_servers.yml` - `stub_status_port`
+   `<port>` in `group_vars/all_servers.yml` - `stub_status_port`
