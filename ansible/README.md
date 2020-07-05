@@ -43,6 +43,6 @@ $ ansible-playbook deploy.yml -K
  - All configuration files are created in the `/opt/dev-ops` folder. A soft link is created in the `nginx` folder to the files in the `/opt/dev-ops...` folder
 
  - How to check, in browser enter http://<nginx_ip>:<port>/nginx_status
- 	when:
- 	  `<nginx_ip>` in `hosts.ini` - `[hosts_o]`
- 	  `<port>` in `group_vars/all_servers.yml` - `stub_status_port`
+when:
+ `<nginx_ip>` in `hosts.ini` - `[hosts_o]`
+ `<port>` in `group_vars/all_servers.yml` - `stub_status_port`
