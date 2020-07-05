@@ -1,7 +1,7 @@
 ## uncomment if using https
 #server {
 #  listen  80;
-#  server_name  is-it-ok.mokka.ru;
+#  server_name  {{ hostvars.nginx['ansible_host'] }};
 #  access_log  /var/log/nginx/{{ hostvars.nginx['ansible_host'] }}-access.log general_json;
 #  error_log   /var/log/nginx/{{ hostvars.nginx['ansible_host'] }}-error.log;
 #  location / {
@@ -14,6 +14,7 @@ server {
 #   listen      443 ssl;  ## uncomment string if using https
 
   listen 80;  ##comment this string if using https
+  
   server_name  {{ hostvars.nginx['ansible_host'] }};
 
   access_log  /var/log/nginx/{{ hostvars.nginx['ansible_host'] }}-access.log general_json;

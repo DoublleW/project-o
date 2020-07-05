@@ -1,11 +1,11 @@
 ## uncomment if using https
 #server {
 #  listen  80;
-#  server_name  is-it-ok.mokka.ru;
-#  access_log  /var/log/nginx/{{ hostvars.work2['ansible_hostname'] }}-access.log general_json;
-#  error_log   /var/log/nginx/{{ hostvars.work2['ansible_hostname'] }}-error.log;
+#  server_name  {{ dashboard_site_name }};
+#  access_log  /var/log/nginx/{{ dashboard_site_name }}-access.log general_json;
+#  error_log   /var/log/nginx/{{ dashboard_site_name }}-error.log;
 #  location / {
-#          return 301 https://is-it-ok.mokka.ru$request_uri;
+#          return 301 https://{{ dashboard_site_name }}$request_uri;
 #  }
 #}
 
@@ -13,12 +13,12 @@ server {
 
 #   listen      443 ssl;  ## uncomment string if using https
 
-   listen 80;  ##comment this string if using https
+  listen 80;  ##comment this string if using https
    
-  server_name  {{ hostvars.work2['ansible_hostname'] }};
+  server_name  {{ dashboard_site_name }};
 
-  access_log  /var/log/nginx/{{ hostvars.work2['ansible_hostname'] }}-access.log general_json;
-  error_log   /var/log/nginx/{{ hostvars.work2['ansible_hostname'] }}-error.log;
+  access_log  /var/log/nginx/{{ dashboard_site_name }}-access.log general_json;
+  error_log   /var/log/nginx/{{ dashboard_site_name }}-error.log;
 
 
   include  /etc/nginx/include/ssl_protocols.conf;
