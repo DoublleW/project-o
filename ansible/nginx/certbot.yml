@@ -1,0 +1,10 @@
+- name: Install nginx
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Install sertbot
+    apt:
+      name: certbot
+      state: latest

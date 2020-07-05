@@ -1,0 +1,18 @@
+server {
+
+    listen {{ stub_status_port }};
+    server_name {{ hostvars.nginx['ansible_host'] }};
+
+    access_log  /var/log/nginx/stab-status-access.log general_json;
+    error_log   /var/log/nginx/stab-status-error.log;
+
+
+    location /nginx_status {
+
+        allow {{ server_main_ip }};
+        allow 127.0.0.1;
+        deny  all;
+
+        stub_status on;
+    }
+}

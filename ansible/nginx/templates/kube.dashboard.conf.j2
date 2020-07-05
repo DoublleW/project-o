@@ -1,0 +1,12 @@
+upstream kube-dashboard {
+  least_conn;
+    {% if 'work1' in hostvars %}
+    server {{ hostvars.work1['ansible_hostname'] }}:{{ dashboard_port }} max_fails=0 fail_timeout=0;
+    {% endif %}
+    {% if 'work2' in hostvars %}
+    server {{ hostvars.work2['ansible_hostname'] }}:{{ dashboard_port }} max_fails=0 fail_timeout=0;
+    {% endif %}
+    {% if 'work3' in hostvars %}
+    server {{ hostvars.work3['ansible_hostname'] }}:{{ dashboard_port }} max_fails=0 fail_timeout=0;
+    {% endif %}
+}

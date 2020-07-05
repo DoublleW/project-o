@@ -1,0 +1,28 @@
+---
+- name: Install nginx
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Make directiry 'include'
+    file:
+        path: /etc/nginx/include
+        state: directory
+
+  - name: Copy config 'log_format'
+    template:
+      src: log_format.conf.j2
+      dest: /etc/nginx/include/log_format.conf
+    become: yes
+
+  - name: Copy config 'requestid_dmz'
+    template:
+      src: requestid_dmz.conf.j2
+      dest: /etc/nginx/include/requestid_dmz.conf
+    become: yes
+
+  - name: Start service nginx
+    service: 
+      name: nginx 
+      state: started

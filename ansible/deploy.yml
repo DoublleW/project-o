@@ -1,18 +1,18 @@
 ---
 
-# change group hosts
+## change group hosts
 - hosts: 
-##    kuber_master
-    kuber_hosts
-##    hosts_o
+#    kuber_master
+#    kuber_hosts
+    hosts_o
 
 
-# install package and change configurations
+## install package and change configurations
 - import_playbook: ./preinstall/main.yml
 
-# install services and initialize cluster
-- import_playbook: ./kubernetes/main.yml
+## install services and initialize cluster
+#- import_playbook: ./kubernetes/main.yml
 
-# install and configurate nginx
-##- import_playbook: ./nginx/main.yml
+## install and configurate nginx
+- import_playbook: ./nginx/main.yml
 

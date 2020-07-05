@@ -1,0 +1,16 @@
+- name: Install nginx
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Add user 'nginx'
+    shell: |
+      useradd -s /bin/false nginx
+    ignore_errors: True
+
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: latest
+
