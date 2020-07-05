@@ -77,6 +77,7 @@ stub_status_port        : 8084
 # service 
 dest_service            : /etc/profile.d/path.sh 
 dashboard_port          : 8085
+dashboard_site_name     : dashboard-kube.org
     
 # kubernetes user
 
