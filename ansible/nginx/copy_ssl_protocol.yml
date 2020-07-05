@@ -7,12 +7,12 @@
 
   - name: Meke directiry 'include'
     file:
-        path: /etc/nginx/include
+        path: /opt/dev-ops/nginx/include
         state: directory
 
   - name: Copy ssl protocol
     template:
       src: ssl_protocols.conf.j2
-      dest: /etc/nginx/include/ssl_protocols.conf
+      dest: /opt/dev-ops/nginx/include/ssl_protocols.conf
     become: yes
 
