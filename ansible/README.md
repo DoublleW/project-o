@@ -14,11 +14,11 @@
 
 Before starting
 
- comment out the unnecessary tasks in the `deploy.yml` file.
+comment out the unnecessary tasks in the `deploy.yml` file.
  
- correct ip addresses of hosts in `hosts.ini` file.
+correct ip addresses of hosts in `hosts.ini` file.
 
- check the variables in `group_vars/all_servers.yml` file.
+check the variables in `group_vars/all_servers.yml` file.
 
  - Run command 
 ```
@@ -46,6 +46,6 @@ $ ansible-playbook deploy.yml -K
 
 when:
 
-   `<nginx_ip>` in `hosts.ini` - `[hosts_o]`
+`<nginx_ip>` in `hosts.ini` - `[hosts_o]`
     
-   `<port>` in `group_vars/all_servers.yml` - `stub_status_port`
+`<port>` in `group_vars/all_servers.yml` - `stub_status_port`

@@ -1,3 +1,6 @@
+## Folder `ansible`
+ - It contains a playbook for deploying a kubernetes cluster with 1 master and 3 workers and 1 host nginx.
+
 ## Preparing the servers.
 
 
