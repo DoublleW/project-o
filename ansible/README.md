@@ -42,7 +42,7 @@ $ ansible-playbook deploy.yml -K
  - Installing `nginx` on an edge host with forwarding to kubernetes workers on internal `80/tcp` port
  - All configuration files are created in the `/opt/dev-ops` folder. A soft link is created in the `nginx` folder to the files in the `/opt/dev-ops...` folder
 
- - How to check, in browser enter http://<nginx_ip>:<port>/nginx_status
+ - How to check, in browser enter `http://<nginx_ip>:<port>/nginx_status`
 
 when:
 
