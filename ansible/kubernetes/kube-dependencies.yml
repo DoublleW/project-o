@@ -38,10 +38,10 @@
     - name: purge
       shell: sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube* -y --allow-change-held-packages 
       ignore_errors: yes
-    - name: rm -rf
+    - name: rm -rf .kube
       shell: sudo rm -rf /home/{{ kube_user }}/.kube
       ignore_errors: yes
-    - name: remove
+    - name: remove kubelet kubeadm kubectl
       shell: sudo apt-get remove kubelet kubeadm kubectl -y --allow-change-held-packages
       ignore_errors: yes
     - name: delete old version of docker
@@ -69,8 +69,6 @@
         net.bridge.bridge-nf-call-iptables = 1
         EOF
         sudo sysctl --system
-
-
 
         sudo apt-get update && sudo apt-get install -y apt-transport-https curl
         curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -

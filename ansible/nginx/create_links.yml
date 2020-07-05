@@ -1,0 +1,49 @@
+---
+- name: Copy `include`
+  hosts: hosts_o
+  become: yes
+
+  tasks:
+
+  - name: Remove the folder 'include'
+    file: 
+      path: /etc/nginx/include 
+      state: absent 
+
+  - name: Remove the folder 'sites-enabled' 
+    file: 
+      path: /etc/nginx/sites-enabled 
+      state: absent 
+
+  - name: Remove the folder 'upstreams' 
+    file: 
+      path: /etc/nginx/upstreams 
+      state: absent 
+
+
+  - name: Create a symbolic link from '/etc/nginx/include' to '/opt/dev-ops/nginx/include'
+    file:
+      src: /opt/dev-ops/nginx/include
+      dest: /etc/nginx/include
+      owner: root
+      group: root
+      state: link
+      force: yes
+
+  - name: Create a symbolic link from '/etc/nginx/sites-enabled' to '/opt/dev-ops/nginx/sites-enabled'
+    file:
+      src: /opt/dev-ops/nginx/sites-enabled
+      dest: /etc/nginx/sites-enabled
+      owner: root
+      group: root
+      state: link
+      force: yes
+
+  - name: Create a symbolic link from '/etc/nginx/upstreams' to '/opt/dev-ops/nginx/upstreams'
+    file:
+      src: /opt/dev-ops/nginx/upstreams
+      dest: /etc/nginx/upstreams
+      owner: root
+      group: root
+      state: link
+      force: yes

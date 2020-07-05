@@ -17,7 +17,7 @@ ansible_become_password : usr123123
 ##: New Vault password:
 ##: Confirm New Vault password:
 ##: Reading plaintext input from stdin. (ctrl-d to end input)
-##: Passjwj388HIH8h9jd38&T^$#edy%$e53!vault | # copy from '!vault' | and further to the last digit
+##: Passjwj388HIH8h9jd38&T^$#edy%$e53!vault |      # copy from '!vault' and further to the last digit
 ##:           $ANSIBLE_VAULT;1.1;AES256
 ##:           66613365373730643966643662313861303066623436393133343635636539613865653263643733
 ##:           3939646264396665643230363037653937383931613538360a373636306461333431663138626239

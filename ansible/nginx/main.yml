@@ -10,6 +10,7 @@
 
 # copy configuration file and target upstream to all kubernetes workers
 - import_playbook: copy_conf.yml
+- import_playbook: create_links.yml
 - import_playbook: copy_upstreams.yml
 - import_playbook: copy_sites.yml
 - import_playbook: copy_ssl_protocol.yml

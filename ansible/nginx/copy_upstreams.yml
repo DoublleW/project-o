@@ -7,16 +7,16 @@
 
   - name: Meke directiry 'upstreams'
     file:
-        path: /etc/nginx/upstreams
+        path: /opt/dev-ops/nginx/upstreams
         state: directory
 
   - name: Copy upstream kube.workers
     template:
       src: kube.workers.conf.j2
-      dest: /etc/nginx/upstreams/kube.workers.conf
+      dest: /opt/dev-ops/nginx/upstreams/kube.workers.conf
     become: yes
 
   - name: Copy upstreams to kube.dashboard
     template:
       src: kube.dashboard.conf.j2
-      dest: /etc/nginx/upstreams/kube.dashboard.conf
+      dest: /opt/dev-ops/nginx/upstreams/kube.dashboard.conf
