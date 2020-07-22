@@ -1,6 +1,6 @@
 ---
 - name: Copy `conf`
-  hosts: hosts_o
+  hosts: hosts_n
   become: yes
 
   tasks:

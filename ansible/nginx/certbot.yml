@@ -1,5 +1,6 @@
+---
 - name: Install nginx
-  hosts: hosts_o
+  hosts: hosts_n
   become: yes
 
   tasks:

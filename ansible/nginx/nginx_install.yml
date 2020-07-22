@@ -1,16 +1,55 @@
+---
 - name: Install nginx
-  hosts: hosts_o
+  hosts: hosts_n
   become: yes
 
   tasks:
 
   - name: Add user 'nginx'
-    shell: |
-      useradd -s /bin/false nginx
-    ignore_errors: True
+    user:
+      name: nginx
+      shell: /bin/false
+      state: present
+
+##    shell: |
+##      useradd -s /bin/false nginx
+##    ignore_errors: True
 
   - name: Install nginx
     apt:
       name: nginx
       state: latest
+    when: ansible_lsb.id == "Ubuntu"
 
+
+  - name: Add an Apt signing key nginx on Debian
+    apt_key:
+      url: https://nginx.org/keys/nginx_signing.key
+      state: present
+    when: ansible_lsb.id == "Debian"
+
+  - name: Add repository nginx on Debian
+    apt_repository:
+      repo: deb https://nginx.org/packages/debian/ stretch nginx 
+      state: present
+      update_cache: false
+    when: ansible_lsb.id == "Debian"
+##    debugger: on_failed
+
+  - name: Update apt-get repo and cache
+    apt: 
+      update_cache: yes
+      force_apt_get: yes
+    when: ansible_lsb.id == "Debian"
+
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: latest
+    when: ansible_lsb.id == "Debian"
+
+  - name: Install apt-transport-https
+    apt:
+      name: apt-transport-https
+      state: latest
+    when: ansible_lsb.id == "Debian"
