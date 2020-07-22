@@ -1,0 +1,17 @@
+---
+- name: test ansible facts
+  hosts: hosts_n
+  become: yes
+
+  tasks:
+
+    - debug:
+        msg: 
+          - "Its ansible task on host-{{ ansible_hostname }} ip-{{ ansible_host }} and OS is Ubuntu"
+          - "123"
+          - "321"
+      when: ansible_lsb.id == "Ubuntu"
+
+    - debug:
+        msg: "Its ansible task on host - {{ ansible_hostname }}; ip - {{ ansible_host }}; and OS is {{ ansible_lsb.id }}"
+      when: ansible_lsb.id == "Debian"

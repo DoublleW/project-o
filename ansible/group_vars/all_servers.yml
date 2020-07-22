@@ -60,7 +60,7 @@ dest_ssh                : /etc/ssh/sshd_config
 
 server_main             : ubuntudesktop64     # static hostname
 
-server_main_ip          : 10.10.10.5            # for test using main host to start playbook
+server_main_ip          : 10.1.1.5            # for test using main host to start playbook
 
 
 # timezone

@@ -25,6 +25,7 @@
       sudo service kubelet start
       sudo snap install kube-scheduler
 
+
   - name: initialize the cluster
     become_user: "{{ kube_user }}"
     shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=yes > /home/{{ kube_user }}/cluster_initialized.txt

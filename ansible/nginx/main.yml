@@ -1,5 +1,5 @@
 ---
-- hosts: hosts_o
+- hosts: hosts_n
 
 
 # update host

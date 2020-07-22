@@ -1,5 +1,13 @@
+# localhost
+127.0.0.1    localhost
+
 # main host
 {{ server_main_ip }}    {{ server_main }}
+
+# other host
+{% if 'other' in hostvars %}
+{{ hostvars.other['ansible_host'] }}    {{ hostvars.other['ansible_hostname'] }}
+{% endif %}
 
 # kubernetes master
 {% if 'master' in hostvars %}

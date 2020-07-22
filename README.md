@@ -92,7 +92,8 @@ If there is no DNS server, then we write the host name in `/etc/hosts`
 ```
 $ sudo nano /etc/hosts
 
-127.0.0.1       localhost.localdomain   localhost  <host_name>
+127.0.0.1       localhost.localdomain   localhost  
+127.0.1.1       <host_name>
 ```
 Disable `systemd-resolved`
 ```
@@ -138,6 +139,7 @@ iface ens32 inet static
 $ sudo service networking restart
 ```
 
+
  - Change hostname.
 
 Set `fqdn` server.
@@ -150,7 +152,8 @@ If there is no DNS server, then we write the host name in `/etc/hosts`
 ```
 $ sudo nano /etc/hosts
 
-127.0.0.1       localhost.localdomain   localhost  <host_name>
+127.0.0.1       localhost.localdomain   localhost  
+127.0.1.1       <host_name>
 ```
 Disable `systemd-resolved`
 ```
@@ -159,6 +162,17 @@ $ sudo systemctl disable systemd-resolved.service
 $ sudo systemctl stop systemd-resolved.service
 
 $ sudo service networking restart
+```
+
+ - Error
+```
+ping: google.com: Temporary failure in name resolution
+```
+Change recording
+```
+sudo nano /etc/resolv.conf
+
+nameserver 8.8.8.8
 ```
 
 
